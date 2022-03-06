@@ -16,7 +16,7 @@ public class MovieController {
         this.repo = repo;
     }
 
-    @GetMapping("/movie")
+    @GetMapping("v2/movie")
     Movies all() {
         return new Movies(repo.findAll());
     }

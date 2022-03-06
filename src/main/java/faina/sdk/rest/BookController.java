@@ -22,21 +22,21 @@ public class BookController {
         this.chapterRepo = chapterRepo;
     }
 
-    @GetMapping("/book")
+    @GetMapping("v2/book")
     List<Book> all() {
         return bookRepo.findAll();
     }
 
-    @GetMapping("/book/{id}")
+    @GetMapping("v2/book/{id}")
     Book getBookById(@PathVariable Long id) throws BookNotFoundException {
         return bookRepo.findById(id)
                 .orElseThrow(() -> new BookNotFoundException("There is no book with id="+id));
     }
 
-    @GetMapping("/book/{id}/chapter")
+    @GetMapping("v2/book/{id}/chapter")
     Chapters getChapters(@PathVariable Long id) throws BookNotFoundException {
 
-        //TODO
+        //TODO: call bookRepo only
         Book book = bookRepo.getById(id);
 
         return new Chapters(chapterRepo.findByBook(book));
