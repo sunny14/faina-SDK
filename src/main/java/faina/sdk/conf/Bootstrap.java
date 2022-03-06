@@ -2,10 +2,12 @@ package faina.sdk.conf;
 
 import faina.sdk.entity.Book;
 import faina.sdk.entity.Chapter;
+import faina.sdk.entity.Movie;
 import faina.sdk.enums.Race;
 import faina.sdk.repository.BookRepo;
 import faina.sdk.repository.ChapterRepo;
 import faina.sdk.repository.CharacterRepo;
+import faina.sdk.repository.MovieRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -43,6 +45,15 @@ public class Bootstrap {
             Book returnGuessWho = bookRepo.save(new Book("The Return Of The King"));
             initBook(chapterRepo, returnGuessWho);
 
+        };
+    }
+
+    @Bean
+    CommandLineRunner initMovies(MovieRepo repo)    {
+        return args -> {
+            log.info("******************************    Preloading movies...    ******************************");
+            log.info(repo.save(new Movie("The Lord of the Rings Series")).getName());
+            log.info(repo.save(new Movie("The Hobbit Series")).getName());
         };
     }
 
