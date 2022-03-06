@@ -34,12 +34,26 @@ public class BookController {
     }
 
     @GetMapping("/book/{id}/chapter")
-    List<Chapter> getChapters(@PathVariable Long id) throws BookNotFoundException {
+    Chapters getChapters(@PathVariable Long id) throws BookNotFoundException {
 
         //TODO
         Book book = bookRepo.getById(id);
 
-        return chapterRepo.findByBook(book);
-               // .orElseThrow(() -> new BookNotFoundException("No chapters found for a book id="+id));
+        return new Chapters(chapterRepo.findByBook(book));
+    }
+}
+
+class Chapters  {
+    private List<Chapter> docs;
+
+    public Chapters() {
+    }
+
+    public Chapters(List<Chapter> docs) {
+        this.docs = docs;
+    }
+
+    public List<Chapter> getDocs() {
+        return docs;
     }
 }
